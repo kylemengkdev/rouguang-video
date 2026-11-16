@@ -171,6 +171,16 @@
   .lb .prev{left:2.5vw}.lb .next{right:2.5vw}
   @media(max-width:640px){.lb .nav{display:none}}
 
+  .lang{display:flex;gap:16px;align-items:center}
+  .lang button{background:none;border:none;font-family:var(--serif);font-size:13px;
+    letter-spacing:.18em;color:var(--dim);cursor:pointer;padding:2px 1px;position:relative;
+    transition:color .25s;outline-offset:6px}
+  .lang button:hover{color:var(--bright)}
+  .lang button.active{color:var(--bright)}
+  .lang button.active::after{content:'';position:absolute;left:0;right:0;bottom:-4px;
+    height:1px;background:rgba(232,230,225,.55)}
+  html[data-lang=en] .album-title .en{display:none}
+
   footer{border-top:1px solid var(--hair);padding:40px 0 52px;text-align:center}
   footer .c{font-family:var(--display);font-size:12px;letter-spacing:.34em;color:var(--dim)}
 
@@ -189,6 +199,11 @@
 <header>
   <div class="hbar">
     <a class="brand" href="#">影像</a>
+    <div class="lang" id="lang">
+      <button data-lang="zh">中</button>
+      <button data-lang="ja">日</button>
+      <button data-lang="en">EN</button>
+    </div>
   </div>
 </header>
 
@@ -199,30 +214,30 @@
   </section>
 
   <section id="works">
-    <div class="sec-label"><span>影像作品<span class="en">selected works</span></span></div>
+    <div class="sec-label"><span><span data-i18n="secLabel">影像作品</span><span class="en" data-i18n="secLabelEn">selected works</span></span></div>
 
     <div class="album-group" data-section="short">
-      <div class="album-title" role="button" tabindex="0">短视频<span class="cnt"></span>
+      <div class="album-title" role="button" tabindex="0"><span class="t" data-i18n-sec="short">短视频</span><span class="cnt"></span>
         <span class="en">shorts</span></div>
       <div class="works" data-album></div>
-      <div class="album-hint">点击展开</div>
-      <button class="album-close">收起画册</button>
+      <div class="album-hint" data-i18n="hintOpen">点击展开</div>
+      <button class="album-close" data-i18n="close">收起画册</button>
     </div>
 
     <div class="album-group" data-section="doc">
-      <div class="album-title" role="button" tabindex="0">纪录片<span class="cnt"></span>
+      <div class="album-title" role="button" tabindex="0"><span class="t" data-i18n-sec="doc">纪录片</span><span class="cnt"></span>
         <span class="en">documentary</span></div>
       <div class="works" data-album></div>
-      <div class="album-hint">点击展开</div>
-      <button class="album-close">收起画册</button>
+      <div class="album-hint" data-i18n="hintOpen">点击展开</div>
+      <button class="album-close" data-i18n="close">收起画册</button>
     </div>
 
     <div class="album-group" data-section="feat">
-      <div class="album-title" role="button" tabindex="0">专题片<span class="cnt"></span>
+      <div class="album-title" role="button" tabindex="0"><span class="t" data-i18n-sec="feat">专题片</span><span class="cnt"></span>
         <span class="en">feature</span></div>
       <div class="works" data-album></div>
-      <div class="album-hint">点击展开</div>
-      <button class="album-close">收起画册</button>
+      <div class="album-hint" data-i18n="hintOpen">点击展开</div>
+      <button class="album-close" data-i18n="close">收起画册</button>
     </div>
 
   </section>
@@ -267,6 +282,20 @@ const SECTIONS = [
   { id: 'doc',  title: '纪录片', videos: [] },
   { id: 'feat', title: '专题片', videos: [] },
 ];
+
+/* 分区标题三语 */
+const SEC_COPY = {
+  short: { zh: '短视频', ja: 'ショートムービー', en: 'Shorts' },
+  doc:   { zh: '纪录片', ja: 'ドキュメンタリー', en: 'Documentary' },
+  feat:  { zh: '专题片', ja: '特集映像', en: 'Features' },
+};
+
+/* 站点文案三语 */
+const SITE = {
+  zh: { secLabel: '影像作品', secLabelEn: 'selected works', hintOpen: '点击展开', close: '收起画册' },
+  ja: { secLabel: '作品',     secLabelEn: 'selected works', hintOpen: 'クリックで展開', close: '画冊を閉じる' },
+  en: { secLabel: 'Selected Works', secLabelEn: 'video works', hintOpen: 'click to expand', close: 'close' },
+};
 
 (function () {
   const lb = document.getElementById('lb');
@@ -418,6 +447,31 @@ const SECTIONS = [
   }
 
   const apis = Array.from(document.querySelectorAll('.album-group')).map(makeApi).filter(Boolean);
+
+  // ===== 三语 =====
+  const qs = s => document.querySelector(s);
+  const qsa = s => Array.from(document.querySelectorAll(s));
+  function applyLang(lang) {
+    const copy = SITE[lang] || SITE.zh;
+    document.documentElement.setAttribute('data-lang', lang);
+    qsa('[data-i18n]').forEach(function (el) {
+      const v = copy[el.dataset.i18n];
+      if (v != null) el.textContent = v;
+    });
+    qsa('[data-i18n-sec]').forEach(function (el) {
+      const s = SEC_COPY[el.dataset.i18nSec];
+      if (s && s[lang] != null) el.textContent = s[lang];
+    });
+    qsa('#lang button').forEach(function (b) { b.classList.toggle('active', b.dataset.lang === lang); });
+  }
+  const savedLang = localStorage.getItem('site-lang');
+  if (savedLang && SITE[savedLang]) applyLang(savedLang);
+  qsa('#lang button').forEach(function (b) {
+    b.addEventListener('click', function () {
+      applyLang(b.dataset.lang);
+      localStorage.setItem('site-lang', b.dataset.lang);
+    });
+  });
 
   // 灯箱控制
   document.getElementById('lbClose').addEventListener('click', closeLb);
