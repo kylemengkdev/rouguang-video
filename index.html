@@ -65,6 +65,8 @@
     transition:color .3s;position:relative;
   }
   .album-title:hover{color:#fff}
+  .album-title.inert{cursor:default;color:var(--mid)}
+  .album-title.inert:hover{color:var(--mid)}
   .album-title .en{display:block;font-family:var(--display);font-style:italic;
     font-size:11px;letter-spacing:.3em;color:var(--dim);margin-top:8px;text-indent:0}
   .album-title .cnt{font-family:var(--display);font-style:italic;font-size:11px;
@@ -300,6 +302,10 @@ const SECTIONS = [
       album.classList.add('empty');
       album.innerHTML = '<div class="empty-dot"></div>';
       if (cntEl) cntEl.textContent = '';
+      const tEl = group.querySelector('.album-title');
+      tEl.classList.add('inert');
+      tEl.removeAttribute('tabindex');
+      tEl.setAttribute('aria-disabled', 'true');
       return { empty: true, album: album, group: group };
     }
     if (cntEl) cntEl.textContent = '(' + sec.videos.length + ')';
