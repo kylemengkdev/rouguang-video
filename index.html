@@ -464,8 +464,8 @@ const SITE = {
     });
     qsa('#lang button').forEach(function (b) { b.classList.toggle('active', b.dataset.lang === lang); });
   }
-  const savedLang = localStorage.getItem('site-lang');
-  if (savedLang && SITE[savedLang]) applyLang(savedLang);
+  const savedLang = localStorage.getItem('site-lang') || 'zh';
+  applyLang(SITE[savedLang] ? savedLang : 'zh');
   qsa('#lang button').forEach(function (b) {
     b.addEventListener('click', function () {
       applyLang(b.dataset.lang);
