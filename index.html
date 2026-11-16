@@ -85,7 +85,8 @@
   .frame{position:relative;aspect-ratio:16/9;overflow:hidden;
     background:radial-gradient(120% 90% at 30% 20%,rgba(232,230,225,.05),transparent 55%),#121213;
     border:1px solid var(--hair2)}
-  .frame img,.frame video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;
+  .frame img,.frame video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;display:block;
+    background:#121213;
     transition:transform .7s var(--ease-out),opacity .5s}
   .frame .noimg{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
     font-family:var(--display);font-style:italic;font-size:15px;letter-spacing:.3em;color:rgba(232,230,225,.28)}
@@ -208,7 +209,17 @@
      note:'一句话备注' }
    ============================================================ */
 const VIDEOS = [
-  // { n:'01', title:'示例片名', src:'videos/demo.mp4', poster:'posters/demo.jpg', dur:'02:15', year:'2026', note:'一句话' },
+  { n:'01', title:'26年9月发布会', src:'videos/01.mp4', poster:'posters/01.png', dur:'02:49', year:'2026', note:'' },
+  { n:'02', title:'IKF-A30幻影', src:'videos/02.mp4', poster:'posters/02.png', dur:'01:09', year:'2026', note:'' },
+  { n:'03', title:'伊利', src:'videos/03.mp4', poster:'posters/03.png', dur:'01:33', year:'2026', note:'' },
+  { n:'04', title:'创维', src:'videos/04.mp4', poster:'posters/04.png', dur:'01:27', year:'2026', note:'' },
+  { n:'05', title:'创维A914（934同款）', src:'videos/05.mp4', poster:'posters/05.png', dur:'01:10', year:'2026', note:'' },
+  { n:'06', title:'唯卓仕K21', src:'videos/06.mp4', poster:'posters/06.png', dur:'01:02', year:'2026', note:'' },
+  { n:'07', title:'唯卓仕Z1Pro', src:'videos/07.mp4', poster:'posters/07.png', dur:'00:48', year:'2026', note:'' },
+  { n:'08', title:'怒喵鼠标', src:'videos/08.mp4', poster:'posters/08.png', dur:'00:48', year:'2026', note:'' },
+  { n:'09', title:'梵尼诗', src:'videos/09.mp4', poster:'posters/09.png', dur:'01:10', year:'2026', note:'' },
+  { n:'10', title:'皓丽投屏器', src:'videos/10.mp4', poster:'posters/10.png', dur:'00:58', year:'2026', note:'' },
+  { n:'11', title:'绿联充电头', src:'videos/11.mp4', poster:'posters/11.png', dur:'01:14', year:'2026', note:'' },
 ];
 
 (function () {
