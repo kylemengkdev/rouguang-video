@@ -181,6 +181,18 @@
     height:1px;background:rgba(232,230,225,.55)}
   html[data-lang=en] .album-title .en{display:none}
 
+  /* cult-ui DNA (MIT, nolly-studio/cult-ui): 分层微抬 + 触感按压 */
+  .vcard .frame{transition:transform .5s var(--ease-out),border-color .5s}
+  .vcard:hover .frame{transform:translateY(-4px)}
+  .album-close:active,.lb .close:active,.lb .nav:active{transform:scale(.96)!important}
+  .lang button:active{transform:scale(.96)}
+  .play{transition:transform .45s var(--ease-out),background .3s,border-color .3s}
+  .vcard:active .play{transform:translate(-50%,-50%) scale(.92)}
+  @media (prefers-reduced-motion:reduce){
+    .vcard:hover .frame{transform:none}
+    .vcard:active .play{transform:translate(-50%,-50%)}
+  }
+
   footer{border-top:1px solid var(--hair);padding:40px 0 52px;text-align:center}
   footer .c{font-family:var(--display);font-size:12px;letter-spacing:.34em;color:var(--dim)}
 
@@ -426,7 +438,24 @@ const SITE = {
     }
     function openCard(i) {
       lbApi = api;
+      // cult-ui DNA: shared-element expand — 卡片框原位飞入放大成播放器
+      var card = works[i];
+      var fr = card ? card.querySelector('.frame').getBoundingClientRect() : null;
       show(i);
+      var v = document.getElementById('lbVideo');
+      if (fr && v && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        requestAnimationFrame(function () {
+          var lr = v.getBoundingClientRect();
+          if (!lr.width || !lr.height) return;
+          var sx = fr.width / lr.width, sy = fr.height / lr.height;
+          var dx = (fr.left + fr.width / 2) - (lr.left + lr.width / 2);
+          var dy = (fr.top + fr.height / 2) - (lr.top + lr.height / 2);
+          v.animate([
+            { transform: 'translate(' + dx + 'px,' + dy + 'px) scale(' + sx + ',' + sy + ')', opacity: .6 },
+            { transform: 'none', opacity: 1 }
+          ], { duration: 480, easing: 'cubic-bezier(.23,1,.32,1)' });
+        });
+      }
     }
 
     // 点击：闭合点任意处展开；展开点卡片进灯箱
