@@ -1,0 +1,9 @@
+# 敏感文件防线（2026-11-17 安全事件后加固，任何情况下不得提交）
+cookies.json
+*.cookies
+.env*
+*token*
+*session*
+*credential*
+*.key
+*.pem
