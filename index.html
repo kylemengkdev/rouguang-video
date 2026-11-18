@@ -146,10 +146,14 @@
     display:flex;justify-content:space-between;gap:10px}
   .vcard .band .yr{font-family:var(--display);font-style:italic}
   /* —— 卡套：影片卡装进卡套（只加壳，卡片本体与布局不动） —— */
-  .works::after{content:'';position:absolute;left:50%;top:8px;width:calc(var(--card-w,300px) * 1.154);max-width:57.6%;height:calc(100% - 56px);z-index:60;pointer-events:none;transform:translateX(calc(-50% - var(--card-w,300px) * .597));clip-path:polygon(0 7.2%,1% 3.8%,3% 1.6%,6% .5%,8.9% 0,100% 0,100% 28%,98.2% 34%,95.4% 40%,92.8% 45%,91.4% 48.5%,91.2% 50%,91.4% 51.5%,92.8% 55%,95.4% 60%,98.2% 66%,100% 72%,100% 100%,8.9% 100%,6% 99.5%,3% 98.4%,1% 96.2%,0 92.8%);background:linear-gradient(112deg,rgba(255,255,255,.22) 0%,rgba(255,255,255,.06) 30%,rgba(255,255,255,0) 56%),radial-gradient(130% 95% at 16% -10%,rgba(255,255,255,.16),rgba(255,255,255,0) 52%),linear-gradient(90deg,rgba(0,0,0,.06) 0%,rgba(0,0,0,.30) 68%,rgba(0,0,0,.62) 100%),linear-gradient(105deg,#2a2a2f 0%,#141416 52%,#060607 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,.20),inset 0 0 0 1px rgba(255,255,255,.05);filter:drop-shadow(32px 0 32px rgba(0,0,0,.40));transition:opacity .3s cubic-bezier(.23,1,.32,1)}
+  .works::after{content:'';position:absolute;left:50%;top:8px;width:calc(var(--card-w,300px) * 1.154);max-width:57.6%;height:calc(100% - 56px);z-index:60;pointer-events:none;transform:translateX(calc(-50% - var(--card-w,300px) * .347));clip-path:polygon(0 7.2%,1% 3.8%,3% 1.6%,6% .5%,8.9% 0,100% 0,100% 28%,98.2% 34%,95.4% 40%,92.8% 45%,91.4% 48.5%,91.2% 50%,91.4% 51.5%,92.8% 55%,95.4% 60%,98.2% 66%,100% 72%,100% 100%,8.9% 100%,6% 99.5%,3% 98.4%,1% 96.2%,0 92.8%);background:linear-gradient(112deg,rgba(255,255,255,.22) 0%,rgba(255,255,255,.06) 30%,rgba(255,255,255,0) 56%),radial-gradient(130% 95% at 16% -10%,rgba(255,255,255,.16),rgba(255,255,255,0) 52%),linear-gradient(90deg,rgba(0,0,0,.04) 0%,rgba(0,0,0,.22) 68%,rgba(0,0,0,.45) 100%),linear-gradient(105deg,rgba(42,42,47,.88) 0%,rgba(20,20,22,.86) 52%,rgba(6,6,7,.90) 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,.20),inset 0 0 0 1px rgba(255,255,255,.05);filter:drop-shadow(32px 0 32px rgba(0,0,0,.40));transition:opacity .3s cubic-bezier(.23,1,.32,1)}
 
-  .works .sleeve-txt{position:absolute;left:50%;top:8px;width:calc(var(--card-w,300px) * 1.154);max-width:57.6%;height:calc(100% - 56px);z-index:61;pointer-events:none;transform:translateX(calc(-50% - var(--card-w,300px) * .597));transition:opacity .3s cubic-bezier(.23,1,.32,1)}
+  .works .sleeve-txt{position:absolute;left:50%;top:8px;width:calc(var(--card-w,300px) * 1.154);max-width:57.6%;height:calc(100% - 56px);z-index:61;pointer-events:none;transform:translateX(calc(-50% - var(--card-w,300px) * .347));transition:opacity .3s cubic-bezier(.23,1,.32,1)}
   .works:not(.ready) .sleeve-txt,.works.open .sleeve-txt{opacity:0}
+  .works:not(.ready) .sleeve-badge,.works.open .sleeve-badge{opacity:0}
+
+  .works .sleeve-badge{position:absolute;left:7.5%;top:9%;z-index:1;display:inline-flex;align-items:center;gap:6px;font-size:calc(var(--card-w,300px) * .048);font-weight:500;letter-spacing:.2em;color:rgba(255,255,255,.92);background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.25);padding:.35em .7em;border-radius:999px;backdrop-filter:blur(12px) saturate(1.4);-webkit-backdrop-filter:blur(12px) saturate(1.4);box-shadow:0 2px 12px rgba(0,0,0,.25), inset 0 1px 0 rgba(255,255,255,.25)}
+  .works .sleeve-badge svg{width:1em;height:1em;flex:none}
   .works .sleeve-label{position:absolute;left:7.5%;bottom:9%;z-index:1;display:block;max-width:72%;color:#fff}
   .works .sleeve-label .t{display:block;font-size:calc(var(--card-w,300px) * .0885);font-weight:700;letter-spacing:.14em;line-height:1.25;text-shadow:0 1px 8px rgba(0,0,0,.5)}
 
@@ -382,7 +386,7 @@ const SITE = {
             '<p><span>' + (v.note || '') + '</span><span class="yr">' + (v.year || '') + '</span></p></div>' +
         '</article>';
     }).join('');
-    album.insertAdjacentHTML('beforeend', '<div class="sleeve-txt" aria-hidden="true"><span class="sleeve-label"><span class="t">' + (sec.id === 'short' ? '近期' : '早些') + '</span></span></div>');
+    album.insertAdjacentHTML('beforeend', '<div class="sleeve-txt" aria-hidden="true"><span class="sleeve-badge"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M4 2.5v11l9-5.5z"/></svg>' + sec.videos.length + ' ' + (sec.id === 'short' ? '条' : '部') + '</span><span class="sleeve-label"><span class="t">' + (sec.id === 'short' ? '近期' : '早些') + '</span></span></div>');
 
     const works = Array.from(album.querySelectorAll('.vcard'));
 
