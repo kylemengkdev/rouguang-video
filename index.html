@@ -391,7 +391,7 @@ const SITE = {
     function layout() {
       const open = album.classList.contains('open');
       const W = album.clientWidth || 800;
-      const cardW = Math.round(Math.min(242, Math.max(154, W * (W >= 980 ? 0.190 : W >= 640 ? 0.278 : 0.586))));
+      const cardW = Math.round(Math.min(213, Math.max(154, W * (W >= 980 ? 0.190 : W >= 640 ? 0.278 : 0.586))));
       album.style.setProperty('--card-w', cardW + 'px');
       const cardH = works[0] ? works[0].offsetHeight : 300;
       const cols = W >= 980 ? 3 : W >= 640 ? 2 : 1;
