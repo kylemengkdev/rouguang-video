@@ -84,8 +84,8 @@
     font-size:11px;letter-spacing:.4em;text-indent:.4em;color:var(--dim);
     opacity:0;transition:opacity .5s .25s;pointer-events:none;white-space:nowrap;
   }
-  .works.ready:not(.open) .album-hint{opacity:1}
-  .works.open .album-hint{opacity:0!important}
+  .works.ready:not(.open) + .album-hint{opacity:1}
+  .works.open + .album-hint{opacity:0!important}
 
   .album-close{
     position:absolute;left:50%;bottom:-58px;transform:translateX(-50%);
