@@ -574,15 +574,15 @@ setTimeout(function () { document.body.classList.add('loaded'); }, 1200);
 })();
 
 (function () {
-  // 收起按钮跟随滚动时，一旦本频道底部滚过按钮悬停位置（80px + 按钮高约 40px）就淡出：页面下方内容不够长时 sticky 自身无法脱出，需主动隐藏
+  // 收起按钮跟随滚动时，一旦本频道在视口内只剩不到 40% 就淡出：短视频频道下方内容太短，滚到底时频道底部仍在视口内（约 390px 处），按像素位置的触发线永远碰不到，只能按可见比例判断
   var io2 = new IntersectionObserver(function (es) {
     es.forEach(function (e) {
       var g = e.target;
       if (!g.classList.contains('open')) return;
       var b = g.querySelector('.album-close');
-      if (b) b.classList.toggle('past', !e.isIntersecting);
+      if (b) b.classList.toggle('past', e.intersectionRatio < 0.4);
     });
-  }, { rootMargin: '-120px 0px 0px 0px' });
+  }, { threshold: [0, 0.4] });
   document.querySelectorAll('.album-group').forEach(function (g) { io2.observe(g); });
 })();
 </script>
