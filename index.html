@@ -102,11 +102,12 @@
     backdrop-filter:blur(12px) saturate(1.4);
     box-shadow:0 2px 12px rgba(0,0,0,.25), inset 0 1px 0 rgba(255,255,255,.25);
     color:rgba(232,230,225,.85);cursor:pointer;white-space:nowrap;z-index:70;
-    transition:border-color .3s, color .3s, background .3s, transform 160ms cubic-bezier(.23,1,.32,1);
+    transition:border-color .3s, color .3s, background .3s, opacity .3s, transform 160ms cubic-bezier(.23,1,.32,1);
   }
   .album-close::before{content:'×';margin-right:10px;font-size:15px;color:rgba(232,230,225,.65)}
   .album-close:hover{border-color:rgba(255,255,255,.5);background:rgba(255,255,255,.2);color:#fff}
   .album-group.open .album-close{display:block;position:sticky;top:80px}
+  .album-close.past{opacity:0!important;pointer-events:none!important}
 
   /* ===== 影片卡（绝对定位，受布局引擎驱动） ===== */
   .vcard{
@@ -432,6 +433,7 @@ const SITE = {
       album.classList.toggle('open', open);
       group.classList.toggle('open', open);
       group.classList.toggle('span-all', open);
+      closeBtn.classList.remove('past');
       layout();
       if (open) {
         setTimeout(function () {
@@ -569,6 +571,19 @@ setTimeout(function () { document.body.classList.add('loaded'); }, 1200);
     es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
   }, { threshold: 0.12 });
   document.querySelectorAll('.sec-label, footer, .album-title').forEach(function (el) { el.classList.add('reveal'); io.observe(el); });
+})();
+
+(function () {
+  // 收起按钮跟随滚动时，一旦本频道底部滚过按钮悬停位置（80px + 按钮高约 40px）就淡出：页面下方内容不够长时 sticky 自身无法脱出，需主动隐藏
+  var io2 = new IntersectionObserver(function (es) {
+    es.forEach(function (e) {
+      var g = e.target;
+      if (!g.classList.contains('open')) return;
+      var b = g.querySelector('.album-close');
+      if (b) b.classList.toggle('past', !e.isIntersecting);
+    });
+  }, { rootMargin: '-120px 0px 0px 0px' });
+  document.querySelectorAll('.album-group').forEach(function (g) { io2.observe(g); });
 })();
 </script>
 </body>
