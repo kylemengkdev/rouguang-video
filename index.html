@@ -59,6 +59,10 @@
 
   /* ===== 分区画册（与柔光官网同逻辑） ===== */
   .album-group{margin-bottom:11vh;position:relative}
+  #works{display:grid;grid-template-columns:1fr}
+  #works>.sec-label{grid-column:1/-1}
+  .album-group.span-all{grid-column:1/-1}
+  @media (min-width:1024px){#works{grid-template-columns:1fr 1fr;column-gap:4vw}}
   .album-title{
     text-align:center;font-size:14px;letter-spacing:.5em;text-indent:.5em;
     color:var(--bright);margin-bottom:7vh;cursor:pointer;user-select:none;
@@ -433,6 +437,7 @@ const SITE = {
         openApi = null;
       }
       album.classList.toggle('open', open);
+      group.classList.toggle('span-all', open);
       layout();
       if (open) {
         setTimeout(function () {
