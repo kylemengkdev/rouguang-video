@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>影像</title>
-<meta name="description" content="ROUGUANG STUDIO video works">
+<title>ROUGUANG · VIDEO｜柔光影像</title>
+<meta name="description" content="柔光工作室影像作品展示 — moving pictures by ROUGUANG STUDIO">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' fill='%230c0c0d'/><text x='32' y='42' font-size='30' text-anchor='middle' fill='%23e8e6e1' font-family='serif'>影</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -35,6 +35,7 @@
   ::-webkit-scrollbar-track{background:transparent}
   ::-moz-selection{background:rgba(232,230,225,.9);color:#0c0c0d}
 
+  /* film grain */
   body::after{
     content:"";position:fixed;inset:0;pointer-events:none;z-index:2000;opacity:.04;
     background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
@@ -42,93 +43,57 @@
 
   .wrap{max-width:1200px;margin:0 auto;padding:0 clamp(24px,5vw,72px)}
 
+  /* ---------- header ---------- */
   header{position:fixed;top:0;left:0;right:0;z-index:100;
     background:linear-gradient(to bottom,rgba(12,12,13,.92),rgba(12,12,13,0));
     backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);}
   .hbar{display:flex;justify-content:space-between;align-items:center;
     padding:22px clamp(24px,5vw,72px);max-width:1200px;margin:0 auto}
-  .brand{font-family:var(--serif);font-size:17px;font-weight:400;letter-spacing:.5em;color:var(--bright);text-decoration:none}
+  .brand{font-family:var(--display);font-size:15px;letter-spacing:.42em;color:var(--bright);text-decoration:none}
+  .brand em{font-style:normal;color:var(--dim);letter-spacing:.3em;font-size:11px;margin-left:12px}
+  .htag{font-size:10px;letter-spacing:.34em;color:var(--dim)}
 
-  .hero{min-height:60vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding-top:90px}
-  .hero .rule{width:1px;height:74px;background:linear-gradient(to bottom,transparent,rgba(232,230,225,.4),transparent)}
+  /* ---------- hero ---------- */
+  .hero{min-height:72vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding-top:90px}
+  .hero .en{font-family:var(--display);font-style:italic;font-size:clamp(15px,2vw,19px);letter-spacing:.34em;color:var(--dim);margin-bottom:26px}
+  .hero h1{font-size:clamp(44px,8vw,92px);font-weight:300;letter-spacing:.3em;text-indent:.3em;line-height:1.25}
+  .hero .sub{margin-top:30px;font-size:12px;letter-spacing:.5em;text-indent:.5em;color:var(--mid)}
+  .hero .rule{width:1px;height:74px;background:linear-gradient(to bottom,transparent,rgba(232,230,225,.4),transparent);margin-top:46px}
+  .hero .hint{font-size:11px;letter-spacing:.4em;color:var(--dim);margin-top:14px}
 
+  /* ---------- section label ---------- */
   .sec-label{display:flex;align-items:center;gap:26px;margin:4vh 0 7vh}
   .sec-label::before,.sec-label::after{content:"";flex:1;height:1px;background:var(--hair)}
   .sec-label span{font-size:11px;letter-spacing:.5em;color:var(--dim);white-space:nowrap}
   .sec-label .en{font-family:var(--display);letter-spacing:.3em;color:rgba(111,109,104,.6);margin-left:10px}
 
-  /* ===== 分区画册（与柔光官网同逻辑） ===== */
-  .album-group{margin-bottom:11vh;position:relative}
-  .album-title{
-    text-align:center;font-size:14px;letter-spacing:.5em;text-indent:.5em;
-    color:var(--bright);margin-bottom:7vh;cursor:pointer;user-select:none;
-    transition:color .3s;position:relative;
-  }
-  .album-title:hover{color:#fff}
-  .album-title.inert{cursor:default;color:var(--mid)}
-  .album-title.inert:hover{color:var(--mid)}
-  .album-title .en{display:block;font-family:var(--display);font-style:italic;
-    font-size:11px;letter-spacing:.3em;color:var(--dim);margin-top:8px;text-indent:0}
-  .album-title .cnt{font-family:var(--display);font-style:italic;font-size:11px;
-    color:var(--dim);letter-spacing:.2em;margin-left:14px;vertical-align:middle}
+  /* ---------- video grid ---------- */
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(22px,3vw,40px);padding-bottom:14vh}
+  @media(max-width:980px){.grid{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:640px){.grid{grid-template-columns:1fr}}
 
-  .works{position:relative;transition:height .8s var(--ease-out);cursor:pointer}
-  .works .empty-dot{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
-    width:5px;height:5px;border-radius:50%;background:rgba(232,230,225,.4);
-    animation:blink 2.6s ease-in-out infinite;pointer-events:none}
-  @keyframes blink{0%,100%{opacity:.15}50%{opacity:.75}}
-  .works.empty{height:120px!important;cursor:default}
-
-  .album-hint{
-    position:absolute;left:50%;bottom:-46px;transform:translateX(-50%);
-    font-size:11px;letter-spacing:.4em;text-indent:.4em;color:var(--dim);
-    opacity:0;transition:opacity .5s .25s;pointer-events:none;white-space:nowrap;
-  }
-  .works.ready:not(.open) .album-hint{opacity:1}
-  .works.open .album-hint{opacity:0!important}
-
-  .album-close{
-    position:absolute;left:50%;bottom:-58px;transform:translateX(-50%);
-    font-size:12px;letter-spacing:4px;font-family:var(--serif);
-    padding:9px 24px;border-radius:999px;
-    border:1px solid rgba(232,230,225,.32);
-    background:rgba(232,230,225,.03);
-    color:rgba(232,230,225,.72);cursor:pointer;white-space:nowrap;
-    opacity:0;pointer-events:none;z-index:5;
-    transition:opacity .45s .2s, border-color .3s, color .3s, background .3s;
-  }
-  .album-close::before{content:'×';margin-right:10px;font-size:15px;color:rgba(232,230,225,.65)}
-  .album-close:hover{border-color:rgba(232,230,225,.6);background:rgba(232,230,225,.08);color:#f2f0eb}
-  .works.open ~ .album-close{opacity:1;pointer-events:auto}
-  .works.empty ~ .album-close{display:none}
-
-  /* ===== 影片卡（绝对定位，受布局引擎驱动） ===== */
   .vcard{
-    position:absolute;top:0;left:0;
-    width:var(--card-w,300px);
-    background:var(--card);border:1px solid var(--hair);
-    cursor:pointer;opacity:0;z-index:var(--zi,1);
-    transform-origin:50% 50%;will-change:transform;
-    transition:transform .8s var(--ease-out), opacity .6s, border-color .5s, box-shadow .5s;
-    box-shadow:0 34px 70px -32px rgba(0,0,0,.85);
+    position:relative;background:var(--card);border:1px solid var(--hair);
+    padding:0 13px;cursor:pointer;opacity:0;transform:translateY(26px);
+    transition:opacity .8s var(--ease-out),transform .8s var(--ease-out),border-color .4s,box-shadow .5s;
+    box-shadow:0 30px 60px -34px rgba(0,0,0,.85);
   }
-  .works.ready .vcard{opacity:1}
-  .works:not(.open) .vcard{cursor:pointer}
-  .vcard:hover{border-color:rgba(232,230,225,.28);box-shadow:0 44px 84px -34px rgba(0,0,0,.95)}
+  .vcard.in{opacity:1;transform:none}
+  .vcard:hover{border-color:rgba(232,230,225,.3);box-shadow:0 40px 80px -34px rgba(0,0,0,.95)}
   .vcard .strip{height:38px;display:flex;align-items:center;justify-content:space-between;padding:0 2px;
     font-family:var(--display);font-size:11px;letter-spacing:.28em;color:rgba(232,230,225,.5)}
   .vcard .strip .dur{font-style:italic;color:var(--dim)}
   .frame{position:relative;aspect-ratio:16/9;overflow:hidden;
     background:radial-gradient(120% 90% at 30% 20%,rgba(232,230,225,.05),transparent 55%),#121213;
     border:1px solid var(--hair2)}
-  .frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;display:block;
-    background:#121213;transition:transform .7s var(--ease-out)}
+  .frame img,.frame video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;
+    transition:transform .7s var(--ease-out),opacity .5s}
   .frame .noimg{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
     font-family:var(--display);font-style:italic;font-size:15px;letter-spacing:.3em;color:rgba(232,230,225,.28)}
-  .vcard:hover .frame img{transform:scale(1.03)}
+  .vcard:hover .frame img{transform:scale(1.04)}
   .play{
     position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
-    width:60px;height:60px;border-radius:50%;
+    width:64px;height:64px;border-radius:50%;
     border:1.5px solid rgba(232,230,225,.75);
     background:rgba(12,12,13,.45);backdrop-filter:blur(4px);
     display:flex;align-items:center;justify-content:center;
@@ -136,17 +101,34 @@
     z-index:2;pointer-events:none;
   }
   .play::after{content:"";display:block;width:0;height:0;margin-left:5px;
-    border-left:15px solid rgba(232,230,225,.95);
-    border-top:9px solid transparent;border-bottom:9px solid transparent}
+    border-left:16px solid rgba(232,230,225,.95);
+    border-top:10px solid transparent;border-bottom:10px solid transparent}
   .vcard:hover .play{transform:translate(-50%,-50%) scale(1.1);background:rgba(12,12,13,.62);border-color:#fff}
-  .vcard .band{padding:14px 4px 18px;border-top:1px solid var(--hair2);margin-top:12px}
-  .vcard .band h3{font-size:14px;font-weight:400;letter-spacing:.14em;color:var(--bright);line-height:1.6;
-    white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .vcard .band p{margin-top:6px;font-size:11px;letter-spacing:.2em;color:var(--dim);
+  .vcard .band{padding:16px 4px 20px;border-top:1px solid var(--hair2);margin-top:14px}
+  .vcard .band h3{font-size:15px;font-weight:400;letter-spacing:.14em;color:var(--bright);line-height:1.6}
+  .vcard .band p{margin-top:7px;font-size:11px;letter-spacing:.2em;color:var(--dim);
     display:flex;justify-content:space-between;gap:10px}
   .vcard .band .yr{font-family:var(--display);font-style:italic}
+  /* —— 卡套：视频卡装进卡套（只加壳，卡片本体不动） —— */
+  .vcard .slv-back{position:absolute;left:-14px;top:-10px;bottom:-10px;width:58%;z-index:0;border-radius:20px;background:linear-gradient(165deg,#141415 0%,#0d0d0e 72%);border:1px solid rgba(232,230,225,.09);pointer-events:none}
+  .vcard>*{position:relative}
+  .vcard .strip,.vcard .frame,.vcard .band{z-index:1;transition:transform .3s cubic-bezier(.23,1,.32,1)}
+  .vcard:hover .strip,.vcard:hover .frame,.vcard:hover .band{transform:translateX(26px)}
+  .vcard .slv-front{position:absolute;left:-14px;top:38px;bottom:103px;width:30%;z-index:2;border-radius:20px;overflow:hidden;pointer-events:none}
+  .vcard .slv-front::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,#171718 0%,#101011 100%);clip-path:polygon(0 0,100% 0,100% 26%,94% 34%,90.5% 42%,89.5% 50%,90.5% 58%,94% 66%,100% 74%,100% 100%,0 100%)}
+  .vcard .slv-front::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent 82%,rgba(0,0,0,.38));clip-path:polygon(0 0,100% 0,100% 26%,94% 34%,90.5% 42%,89.5% 50%,90.5% 58%,94% 66%,100% 74%,100% 100%,0 100%)}
+  @media (prefers-reduced-motion:reduce){.vcard .strip,.vcard .frame,.vcard .band{transition:none}.vcard:hover .strip,.vcard:hover .frame,.vcard:hover .band{transform:none}}
 
-  /* ===== 灯箱 ===== */
+  /* ---------- empty state ---------- */
+  .empty{display:none;text-align:center;padding:16vh 0 20vh}
+  .empty.show{display:block}
+  .empty .big{font-family:var(--display);font-style:italic;font-size:clamp(20px,3vw,28px);letter-spacing:.24em;color:var(--mid)}
+  .empty .sm{margin-top:22px;font-size:12px;letter-spacing:.42em;color:var(--dim)}
+  .empty .dot{width:5px;height:5px;border-radius:50%;background:rgba(232,230,225,.4);margin:38px auto 0;
+    animation:blink 2.6s ease-in-out infinite}
+  @keyframes blink{0%,100%{opacity:.15}50%{opacity:.75}}
+
+  /* ---------- lightbox ---------- */
   .lb{position:fixed;inset:0;z-index:1000;background:rgba(8,8,9,.96);
     display:flex;flex-direction:column;align-items:center;justify-content:center;
     opacity:0;pointer-events:none;transition:opacity .45s var(--ease-out);padding:5vh 4vw}
@@ -171,87 +153,48 @@
   .lb .prev{left:2.5vw}.lb .next{right:2.5vw}
   @media(max-width:640px){.lb .nav{display:none}}
 
-  .lang{display:flex;gap:16px;align-items:center}
-  .lang button{background:none;border:none;font-family:var(--serif);font-size:13px;
-    letter-spacing:.18em;color:var(--dim);cursor:pointer;padding:2px 1px;position:relative;
-    transition:color .25s;outline-offset:6px}
-  .lang button:hover{color:var(--bright)}
-  .lang button.active{color:var(--bright)}
-  .lang button.active::after{content:'';position:absolute;left:0;right:0;bottom:-4px;
-    height:1px;background:rgba(232,230,225,.55)}
-  html[data-lang=en] .album-title .en{display:none}
-
-  /* cult-ui DNA (MIT, nolly-studio/cult-ui): 分层微抬 + 触感按压 */
-  .vcard .frame{transition:transform .5s var(--ease-out),border-color .5s}
-  .vcard:hover .frame{transform:translateY(-4px)}
-  .album-close:active,.lb .close:active,.lb .nav:active{transform:scale(.96)!important}
-  .lang button:active{transform:scale(.96)}
-  .play{transition:transform .45s var(--ease-out),background .3s,border-color .3s}
-  .vcard:active .play{transform:translate(-50%,-50%) scale(.92)}
-  @media (prefers-reduced-motion:reduce){
-    .vcard:hover .frame{transform:none}
-    .vcard:active .play{transform:translate(-50%,-50%)}
-  }
-
+  /* ---------- footer ---------- */
   footer{border-top:1px solid var(--hair);padding:40px 0 52px;text-align:center}
   footer .c{font-family:var(--display);font-size:12px;letter-spacing:.34em;color:var(--dim)}
 
+  /* reveal helpers */
   .reveal{opacity:0;transform:translateY(22px);transition:opacity .9s var(--ease-out),transform .9s var(--ease-out)}
   .reveal.in{opacity:1;transform:none}
-  .hero .rule{opacity:0;transition:opacity 1.2s var(--ease-out)}
-  body.loaded .hero .rule{opacity:1}
-
-  @media(max-width:640px){
-    .album-title{font-size:13px;letter-spacing:.36em}
-  }
+  body.loaded .hero .en,body.loaded .hero h1,body.loaded .hero .sub,body.loaded .hero .rule,body.loaded .hero .hint{
+    opacity:1;transform:none}
+  .hero .en,.hero h1,.hero .sub,.hero .rule,.hero .hint{opacity:0;transform:translateY(18px);
+    transition:opacity 1s var(--ease-out),transform 1s var(--ease-out)}
+  .hero h1{transition-delay:.15s}.hero .sub{transition-delay:.3s}
+  .hero .rule{transition-delay:.45s}.hero .hint{transition-delay:.6s}
 </style>
 </head>
 <body>
 
 <header>
   <div class="hbar">
-    <a class="brand" href="#">影像</a>
-    <div class="lang" id="lang">
-      <button data-lang="zh">中</button>
-      <button data-lang="ja">日</button>
-      <button data-lang="en">EN</button>
-    </div>
+    <a class="brand" href="#">ROUGUANG<em>VIDEO</em></a>
+    <div class="htag">柔光 · 影像</div>
   </div>
 </header>
 
 <main class="wrap">
 
   <section class="hero">
+    <div class="en">moving pictures</div>
+    <h1>影像</h1>
+    <div class="sub">光落下的地方 · 时间被留住</div>
     <div class="rule"></div>
+    <div class="hint">↓ &nbsp;SCROLL</div>
   </section>
 
   <section id="works">
-    <div class="sec-label"><span><span data-i18n="secLabel">影像作品</span><span class="en" data-i18n="secLabelEn">selected works</span></span></div>
-
-    <div class="album-group" data-section="short">
-      <div class="album-title" role="button" tabindex="0"><span class="t" data-i18n-sec="short">短视频</span><span class="cnt"></span>
-        <span class="en">shorts</span></div>
-      <div class="works" data-album></div>
-      <div class="album-hint" data-i18n="hintOpen">点击展开</div>
-      <button class="album-close" data-i18n="close">收起频道</button>
+    <div class="sec-label"><span>影像作品<span class="en">selected works</span></span></div>
+    <div class="grid" id="grid"><!-- cards injected --></div>
+    <div class="empty" id="empty">
+      <div class="big">The films are still in the darkroom.</div>
+      <div class="sm">片子还在暗房里 · 即将上架</div>
+      <div class="dot"></div>
     </div>
-
-    <div class="album-group" data-section="doc">
-      <div class="album-title" role="button" tabindex="0"><span class="t" data-i18n-sec="doc">纪录片</span><span class="cnt"></span>
-        <span class="en">documentary</span></div>
-      <div class="works" data-album></div>
-      <div class="album-hint" data-i18n="hintOpen">点击展开</div>
-      <button class="album-close" data-i18n="close">收起频道</button>
-    </div>
-
-    <div class="album-group" data-section="feat">
-      <div class="album-title" role="button" tabindex="0"><span class="t" data-i18n-sec="feat">专题片</span><span class="cnt"></span>
-        <span class="en">feature</span></div>
-      <div class="works" data-album></div>
-      <div class="album-hint" data-i18n="hintOpen">点击展开</div>
-      <button class="album-close" data-i18n="close">收起频道</button>
-    </div>
-
   </section>
 
 </main>
@@ -260,6 +203,7 @@
   <div class="c">© 2026 ROUGUANG STUDIO — VIDEO</div>
 </footer>
 
+<!-- ============ 播放灯箱 ============ -->
 <div class="lb" id="lb" aria-hidden="true">
   <div class="idx" id="lbIdx"></div>
   <button class="close" id="lbClose" aria-label="关闭">×</button>
@@ -271,247 +215,76 @@
 
 <script>
 /* ============================================================
-   分区数据 —— 加片只改对应分区的 videos 数组：
-   { n:'01', title, src:'videos/xx.mp4', poster:'posters/xx.png',
-     dur:'02:15', year:'2026', note:'' }
+   影片数据 —— 加片只改这里：
+   { n:'01',            序号（自动兜底为序数）
+     title:'片名',
+     src:'videos/xx.mp4',   视频文件（放到 videos/ 目录）
+     poster:'posters/xx.jpg',封面图（可选，放 posters/，不填则显示占位）
+     dur:'02:15',           时长（卡片右上角展示）
+     year:'2026',
+     note:'一句话备注' }
    ============================================================ */
-const SECTIONS = [
-  {
-    id: 'short', title: '短视频', videos: [
-      { n:'01', title:'26年9月发布会', src:'videos/01.mp4', poster:'posters/01.png', dur:'02:49', year:'2026', note:'' },
-      { n:'02', title:'IKF-A30幻影', src:'videos/02.mp4', poster:'posters/02.png', dur:'01:09', year:'2026', note:'' },
-      { n:'03', title:'伊利', src:'videos/03.mp4', poster:'posters/03.png', dur:'01:33', year:'2026', note:'' },
-      { n:'04', title:'创维', src:'videos/04.mp4', poster:'posters/04.png', dur:'01:27', year:'2026', note:'' },
-      { n:'05', title:'创维A914（934同款）', src:'videos/05.mp4', poster:'posters/05.png', dur:'01:10', year:'2026', note:'' },
-      { n:'06', title:'唯卓仕K21', src:'videos/06.mp4', poster:'posters/06.png', dur:'01:02', year:'2026', note:'' },
-      { n:'07', title:'唯卓仕Z1Pro', src:'videos/07.mp4', poster:'posters/07.png', dur:'00:48', year:'2026', note:'' },
-      { n:'08', title:'怒喵鼠标', src:'videos/08.mp4', poster:'posters/08.png', dur:'00:48', year:'2026', note:'' },
-      { n:'09', title:'梵尼诗', src:'videos/09.mp4', poster:'posters/09.png', dur:'01:10', year:'2026', note:'' },
-      { n:'10', title:'皓丽投屏器', src:'videos/10.mp4', poster:'posters/10.png', dur:'00:58', year:'2026', note:'' },
-      { n:'11', title:'绿联充电头', src:'videos/11.mp4', poster:'posters/11.png', dur:'01:14', year:'2026', note:'' },
-      { n:'12', title:'行李箱', src:'videos/12.mp4', poster:'posters/12.png', dur:'00:58', year:'2026', note:'' },
-    ]
-  },
-  { id: 'doc',  title: '纪录片', videos: [] },
-  { id: 'feat', title: '专题片', videos: [
-      { n:'01', title:'魏', src:'videos/feat01.mp4', poster:'posters/feat01.png', dur:'02:49', year:'2026', note:'' },
-      { n:'02', title:'张', src:'videos/feat02.mp4', poster:'posters/feat02.png', dur:'03:13', year:'2026', note:'' },
-    ] },
+const VIDEOS = [
+  // { n:'01', title:'示例片名', src:'videos/demo.mp4', poster:'posters/demo.jpg', dur:'02:15', year:'2026', note:'一句话' },
 ];
 
-/* 分区标题三语 */
-const SEC_COPY = {
-  short: { zh: '短视频', ja: 'ショートムービー', en: 'Shorts' },
-  doc:   { zh: '纪录片', ja: 'ドキュメンタリー', en: 'Documentary' },
-  feat:  { zh: '专题片', ja: '特集映像', en: 'Features' },
-};
-
-/* 站点文案三语 */
-const SITE = {
-  zh: { secLabel: '影像作品', secLabelEn: 'selected works', hintOpen: '点击展开', close: '收起频道' },
-  ja: { secLabel: '作品',     secLabelEn: 'selected works', hintOpen: 'クリックで展開', close: 'チャンネルを閉じる' },
-  en: { secLabel: 'Selected Works', secLabelEn: 'video works', hintOpen: 'click to expand', close: 'close' },
-};
-
 (function () {
+  const grid = document.getElementById('grid');
+  const empty = document.getElementById('empty');
   const lb = document.getElementById('lb');
   const lbVideo = document.getElementById('lbVideo');
   const lbTitle = document.getElementById('lbTitle');
   const lbMeta = document.getElementById('lbMeta');
   const lbIdx = document.getElementById('lbIdx');
-  let openApi = null;   // 手风琴：当前展开的分区
-  let lbApi = null;     // 灯箱当前分区
-  let lbI = 0;
-
-  const STACK = [
-    { r: -2.2, dx: 0, dy: 0 },
-    { r: 3.4, dx: -7, dy: 5 },
-    { r: -3.1, dx: 6, dy: 9 },
-    { r: 2.4, dx: -5, dy: 13 },
-    { r: -4.2, dx: 8, dy: 17 },
-    { r: 3.2, dx: -6, dy: 21 }
-  ];
+  let cur = 0;
 
   function pad(i) { return String(i + 1).padStart(2, '0'); }
 
-  function makeApi(group) {
-    const sec = SECTIONS.find(s => s.id === group.dataset.section);
-    const album = group.querySelector('.works');
-    const hint = group.querySelector('.album-hint');
-    const closeBtn = group.querySelector('.album-close');
-    const cntEl = group.querySelector('.cnt');
-    const cards = [];
-
-    // 空分区：点 + 空态
-    if (!sec.videos.length) {
-      album.classList.add('empty');
-      album.innerHTML = '<div class="empty-dot"></div>';
-      if (cntEl) cntEl.textContent = '';
-      const tEl = group.querySelector('.album-title');
-      tEl.classList.add('inert');
-      tEl.removeAttribute('tabindex');
-      tEl.setAttribute('aria-disabled', 'true');
-      return { empty: true, album: album, group: group };
-    }
-    if (cntEl) cntEl.textContent = '(' + sec.videos.length + ')';
-
-    album.innerHTML = sec.videos.map(function (v, i) {
+  function render() {
+    if (!VIDEOS.length) { empty.classList.add('show'); return; }
+    empty.classList.remove('show');
+    grid.innerHTML = VIDEOS.map(function (v, i) {
+      const n = v.n || pad(i);
       const media = v.poster
         ? '<img src="' + v.poster + '" alt="' + v.title + '" loading="lazy">'
         : '<div class="noimg">no frame</div>';
       return '' +
         '<article class="vcard" data-i="' + i + '" tabindex="0" role="button" aria-label="播放 ' + v.title + '">' +
-          '<div class="strip"><span>' + (v.n || pad(i)) + '</span><span class="dur">' + (v.dur || '') + '</span></div>' +
+          '<div class="slv-back" aria-hidden="true"></div>' +
+          '<div class="strip"><span>' + n + '</span><span class="dur">' + (v.dur || '') + '</span></div>' +
           '<div class="frame">' + media + '<div class="play"></div></div>' +
           '<div class="band"><h3>' + v.title + '</h3>' +
             '<p><span>' + (v.note || '') + '</span><span class="yr">' + (v.year || '') + '</span></p></div>' +
+          '<div class="slv-front" aria-hidden="true"></div>' +
         '</article>';
     }).join('');
 
-    const works = Array.from(album.querySelectorAll('.vcard'));
-
-    function layout() {
-      const open = album.classList.contains('open');
-      const W = album.clientWidth || 800;
-      const cardW = Math.round(Math.min(360, Math.max(230, W * (W >= 980 ? 0.3 : W >= 640 ? 0.42 : 0.86))));
-      album.style.setProperty('--card-w', cardW + 'px');
-      const cardH = works[0] ? works[0].offsetHeight : 300;
-      const cols = W >= 980 ? 3 : W >= 640 ? 2 : 1;
-      const gapX = Math.max(22, Math.round(W * 0.035));
-      const gapY = Math.max(60, Math.round(window.innerHeight * 0.085));
-      let maxBottom = 0;
-      works.forEach(function (w, i) {
-        let x, y, r, d;
-        if (open) {
-          const c = i % cols, row = Math.floor(i / cols);
-          const cellW = (W - gapX * (cols - 1)) / cols;
-          x = Math.round(c * (cellW + gapX) + (cellW - cardW) / 2);
-          y = row * (cardH + gapY);
-          r = 0;
-          d = i * 55;
-          w.style.setProperty('--zi', 1);
-        } else {
-          const s = STACK[i] || { r: 0, dx: (i % 2 ? -4 : 4), dy: i * 3 };
-          x = Math.round((W - cardW) / 2) + s.dx;
-          y = 14 + s.dy;
-          r = s.r;
-          d = (works.length - 1 - i) * 45;
-          w.style.setProperty('--zi', works.length - i);
-        }
-        w.style.transitionDelay = '0ms, 0ms, 0ms, 0ms';  // 一次性全展开（去错峰）
-        w.style.transform = 'translate3d(' + x + 'px,' + y + 'px,0) rotate(' + r + 'deg)';
-        maxBottom = Math.max(maxBottom, y + cardH);
-      });
-      album.style.height = Math.round(maxBottom + 56) + 'px';
-    }
-
-    function toggle(open) {
-      if (open) {
-        if (openApi && openApi !== api) openApi.toggle(false);
-        openApi = api;
-      } else if (openApi === api) {
-        openApi = null;
-      }
-      album.classList.toggle('open', open);
-      layout();
-      if (open) {
-        setTimeout(function () {
-          group.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }, 250);
-      }
-    }
-
-    // 灯箱（本分区）
-    function show(i) {
-      const n = works.length; if (!n) return;
-      lbI = ((i % n) + n) % n;
-      const v = sec.videos[lbI];
-      lbVideo.src = v.src;
-      if (v.poster) lbVideo.poster = v.poster;
-      lbTitle.textContent = v.title;
-      lbMeta.textContent = [v.note, v.year, v.dur].filter(Boolean).join('  ·  ');
-      lbIdx.textContent = (v.n || pad(lbI)) + ' / ' + String(n).padStart(2, '0');
-      lb.classList.add('on');
-      lb.setAttribute('aria-hidden', 'false');
-      document.body.style.overflow = 'hidden';
-      lbVideo.play().catch(function () {});
-    }
-    function openCard(i) {
-      lbApi = api;
-      // cult-ui DNA: shared-element expand — 卡片框原位飞入放大成播放器
-      var card = works[i];
-      var fr = card ? card.querySelector('.frame').getBoundingClientRect() : null;
-      show(i);
-      var v = document.getElementById('lbVideo');
-      if (fr && v && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        requestAnimationFrame(function () {
-          var lr = v.getBoundingClientRect();
-          if (!lr.width || !lr.height) return;
-          var sx = fr.width / lr.width, sy = fr.height / lr.height;
-          var dx = (fr.left + fr.width / 2) - (lr.left + lr.width / 2);
-          var dy = (fr.top + fr.height / 2) - (lr.top + lr.height / 2);
-          v.animate([
-            { transform: 'translate(' + dx + 'px,' + dy + 'px) scale(' + sx + ',' + sy + ')', opacity: .6 },
-            { transform: 'none', opacity: 1 }
-          ], { duration: 480, easing: 'cubic-bezier(.23,1,.32,1)' });
-        });
-      }
-    }
-
-    // 点击：闭合点任意处展开；展开点卡片进灯箱
-    album.addEventListener('click', function (e) {
-      if (!album.classList.contains('open')) { toggle(true); return; }
-      const card = e.target.closest('.vcard');
-      if (card) openCard(parseInt(card.dataset.i, 10));
+    // reveal on scroll
+    const io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    grid.querySelectorAll('.vcard').forEach(function (c, i) {
+      c.style.transitionDelay = (i % 3) * 90 + 'ms, ' + (i % 3) * 90 + 'ms, 0s, 0s';
+      io.observe(c);
+      c.addEventListener('click', function () { open(i); });
+      c.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(i); } });
     });
-    album.addEventListener('keydown', function (e) {
-      if (e.key === 'Enter' || e.key === ' ') {
-        const card = e.target.closest('.vcard');
-        if (card) { e.preventDefault(); if (!album.classList.contains('open')) toggle(true); else openCard(parseInt(card.dataset.i, 10)); }
-      }
-    });
-    closeBtn.addEventListener('click', function (e) { e.stopPropagation(); toggle(false); });
-    const titleEl = group.querySelector('.album-title');
-    titleEl.addEventListener('click', function () { if (!album.classList.contains('open')) toggle(true); });
-    titleEl.addEventListener('keydown', function (e) { if (e.key === 'Enter') toggle(true); });
-
-    const api = { empty: false, album: album, group: group, layout: layout, toggle: toggle, show: show, sec: sec, works: works };
-    return api;
   }
 
-  const apis = Array.from(document.querySelectorAll('.album-group')).map(makeApi).filter(Boolean);
-
-  // ===== 三语 =====
-  const qs = s => document.querySelector(s);
-  const qsa = s => Array.from(document.querySelectorAll(s));
-  function applyLang(lang) {
-    const copy = SITE[lang] || SITE.zh;
-    document.documentElement.setAttribute('data-lang', lang);
-    qsa('[data-i18n]').forEach(function (el) {
-      const v = copy[el.dataset.i18n];
-      if (v != null) el.textContent = v;
-    });
-    qsa('[data-i18n-sec]').forEach(function (el) {
-      const s = SEC_COPY[el.dataset.i18nSec];
-      if (s && s[lang] != null) el.textContent = s[lang];
-    });
-    qsa('#lang button').forEach(function (b) { b.classList.toggle('active', b.dataset.lang === lang); });
+  function open(i) {
+    cur = (i + VIDEOS.length) % VIDEOS.length;
+    const v = VIDEOS[cur];
+    lbVideo.src = v.src;
+    if (v.poster) lbVideo.poster = v.poster;
+    lbTitle.textContent = v.title;
+    lbMeta.textContent = [v.note, v.year, v.dur].filter(Boolean).join('  ·  ');
+    lbIdx.textContent = (v.n || pad(cur)) + ' / ' + String(VIDEOS.length).padStart(2, '0');
+    lb.classList.add('on');
+    lb.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    lbVideo.play().catch(function () {});
   }
-  const savedLang = localStorage.getItem('site-lang') || 'zh';
-  applyLang(SITE[savedLang] ? savedLang : 'zh');
-  qsa('#lang button').forEach(function (b) {
-    b.addEventListener('click', function () {
-      applyLang(b.dataset.lang);
-      localStorage.setItem('site-lang', b.dataset.lang);
-    });
-  });
-
-  // 灯箱控制
-  document.getElementById('lbClose').addEventListener('click', closeLb);
-  document.getElementById('lbPrev').addEventListener('click', function () { if (lbApi) lbApi.show(lbI - 1); });
-  document.getElementById('lbNext').addEventListener('click', function () { if (lbApi) lbApi.show(lbI + 1); });
-  lb.addEventListener('click', function (e) { if (e.target === lb) closeLb(); });
-  function closeLb() {
+  function close() {
     lb.classList.remove('on');
     lb.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
@@ -519,37 +292,31 @@ const SITE = {
     lbVideo.removeAttribute('src');
     lbVideo.load();
   }
+
+  document.getElementById('lbClose').addEventListener('click', close);
+  document.getElementById('lbPrev').addEventListener('click', function () { open(cur - 1); });
+  document.getElementById('lbNext').addEventListener('click', function () { open(cur + 1); });
+  lb.addEventListener('click', function (e) { if (e.target === lb) close(); });
   document.addEventListener('keydown', function (e) {
-    if (lb.classList.contains('on')) {
-      if (e.key === 'Escape') closeLb();
-      if (e.key === 'ArrowLeft' && lbApi) lbApi.show(lbI - 1);
-      if (e.key === 'ArrowRight' && lbApi) lbApi.show(lbI + 1);
-      return;
-    }
-    if (e.key === 'Escape' && openApi) openApi.toggle(false);
+    if (!lb.classList.contains('on')) return;
+    if (e.key === 'Escape') close();
+    if (e.key === 'ArrowLeft') open(cur - 1);
+    if (e.key === 'ArrowRight') open(cur + 1);
   });
 
-  // 初始化
-  apis.forEach(function (a) { if (!a.empty) a.layout(); });
-  requestAnimationFrame(function () {
-    apis.forEach(function (a) { if (!a.empty) { a.album.classList.add('ready'); a.layout(); } });
-  });
-  if (document.fonts && document.fonts.ready) {
-    document.fonts.ready.then(function () { apis.forEach(function (a) { if (!a.empty) a.layout(); }); });
-  }
-  window.addEventListener('load', function () { apis.forEach(function (a) { if (!a.empty) a.layout(); }); });
-  let rt;
-  window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(function () { apis.forEach(function (a) { if (!a.empty) a.layout(); }); }, 180); });
+  render();
 })();
 
+// hero entrance
 window.addEventListener('load', function () { document.body.classList.add('loaded'); });
 setTimeout(function () { document.body.classList.add('loaded'); }, 1200);
 
+// generic reveal (labels / footer)
 (function () {
   const io = new IntersectionObserver(function (es) {
     es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
   }, { threshold: 0.12 });
-  document.querySelectorAll('.sec-label, footer, .album-title').forEach(function (el) { el.classList.add('reveal'); io.observe(el); });
+  document.querySelectorAll('.sec-label, footer').forEach(function (el) { el.classList.add('reveal'); io.observe(el); });
 })();
 </script>
 </body>
