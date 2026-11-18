@@ -150,11 +150,9 @@
 
   .works .sleeve-txt{position:absolute;left:50%;top:8px;width:calc(var(--card-w,300px) * 1.154);max-width:57.6%;height:calc(100% - 56px);z-index:61;pointer-events:none;transform:translateX(calc(-50% - var(--card-w,300px) * .597));transition:opacity .3s cubic-bezier(.23,1,.32,1)}
   .works:not(.ready) .sleeve-txt,.works.open .sleeve-txt{opacity:0}
-  .works .sleeve-badge{position:absolute;left:7.5%;top:9%;z-index:1;display:inline-flex;align-items:center;gap:6px;font-size:calc(var(--card-w,300px) * .0596);font-weight:500;letter-spacing:.2em;color:rgba(255,255,255,.88);background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.16);padding:.45em .8em;border-radius:999px;backdrop-filter:blur(4px)}
-  .works .sleeve-badge svg{width:1em;height:1em;flex:none}
   .works .sleeve-label{position:absolute;left:7.5%;bottom:9%;z-index:1;display:block;max-width:72%;color:#fff}
   .works .sleeve-label .t{display:block;font-size:calc(var(--card-w,300px) * .0885);font-weight:700;letter-spacing:.14em;line-height:1.25;text-shadow:0 1px 8px rgba(0,0,0,.5)}
-  .works .sleeve-label .s{display:block;font-size:calc(var(--card-w,300px) * .0615);color:rgba(255,255,255,.66);margin-top:2px;letter-spacing:.2em}
+
   .works:not(.ready)::after,.works.open::after{opacity:0}
   .works.empty::after{display:none}
   .works:not(.open) .vcard{transition:transform .8s var(--ease-out),opacity .6s,border-color .5s,box-shadow .5s,margin-left .3s cubic-bezier(.23,1,.32,1)}
@@ -384,8 +382,7 @@ const SITE = {
             '<p><span>' + (v.note || '') + '</span><span class="yr">' + (v.year || '') + '</span></p></div>' +
         '</article>';
     }).join('');
-    const copy = SEC_COPY[sec.id] || { zh: sec.title, en: '' };
-    album.insertAdjacentHTML('beforeend', '<div class="sleeve-txt" aria-hidden="true"><span class="sleeve-badge"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M4 2.5v11l9-5.5z"/></svg>' + sec.videos.length + ' ' + (sec.id === 'short' ? '条' : '部') + '</span><span class="sleeve-label"><span class="t">' + copy.zh + '</span><span class="s">' + copy.en + '</span></span></div>');
+    album.insertAdjacentHTML('beforeend', '<div class="sleeve-txt" aria-hidden="true"><span class="sleeve-label"><span class="t">' + (sec.id === 'short' ? '近期' : '早些') + '</span></span></div>');
 
     const works = Array.from(album.querySelectorAll('.vcard'));
 
