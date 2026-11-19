@@ -36,11 +36,16 @@
   html[data-theme="light"] .album-close{border-color:rgba(30,28,25,.20);background:rgba(30,28,25,.06);color:rgba(30,28,25,.80)}
   html[data-theme="light"] .album-close::before{color:rgba(30,28,25,.65)}
   html[data-theme="light"] .album-close:hover{border-color:rgba(30,28,25,.45);background:rgba(30,28,25,.10);color:#1e1c19}
-  html[data-theme="light"] .vcard:hover{border-color:rgba(30,28,25,.30)}
-  html[data-theme="light"] .vcard .strip{color:rgba(30,28,25,.55)}
-  html[data-theme="light"] .frame{background:radial-gradient(120% 90% at 30% 20%,rgba(30,28,25,.05),transparent 55%),#ece8df}
-  html[data-theme="light"] .frame img{background:#ece8df}
-  html[data-theme="light"] .frame .noimg{color:rgba(30,28,25,.35)}
+  /* 明信片（.vcard/.frame）保持原色深色 */
+  html[data-theme="light"] .vcard{background:#0f0f10;border-color:rgba(232,230,225,.11)}
+  html[data-theme="light"] .vcard:hover{border-color:rgba(232,230,225,.28)}
+  html[data-theme="light"] .vcard .strip{color:rgba(232,230,225,.5)}
+  html[data-theme="light"] .vcard .band{border-top-color:rgba(232,230,225,.07)}
+  html[data-theme="light"] .vcard .band h3{color:#e8e6e1}
+  html[data-theme="light"] .vcard .band p{color:#6f6d68}
+  html[data-theme="light"] .frame{background:radial-gradient(120% 90% at 30% 20%,rgba(232,230,225,.05),transparent 55%),#121213;border-color:rgba(232,230,225,.07)}
+  html[data-theme="light"] .frame img{background:#121213}
+  html[data-theme="light"] .frame .noimg{color:rgba(232,230,225,.28)}
   html[data-theme="light"] .lang button.active::after{background:rgba(30,28,25,.55)}
 
   *{box-sizing:border-box;margin:0;padding:0}
@@ -233,6 +238,7 @@
   html[data-lang=en] .album-title .en{display:none}
   .theme-toggle{background:none;border:none;font-family:var(--serif);font-size:15px;line-height:1;color:var(--dim);cursor:pointer;padding:2px 4px;margin-left:16px;transition:color .25s}
   .theme-toggle:hover{color:var(--bright)}
+  .hbar-right{display:flex;align-items:center}
 
   /* cult-ui DNA (MIT, nolly-studio/cult-ui): 分层微抬 + 触感按压 */
   .vcard .frame{transition:transform .5s var(--ease-out),border-color .5s}
@@ -264,12 +270,14 @@
 <header>
   <div class="hbar">
     <a class="brand" href="#">影像</a>
-    <div class="lang" id="lang">
-      <button data-lang="zh">中</button>
-      <button data-lang="ja">日</button>
-      <button data-lang="en">EN</button>
+    <div class="hbar-right">
+      <div class="lang" id="lang">
+        <button data-lang="zh">中</button>
+        <button data-lang="ja">日</button>
+        <button data-lang="en">EN</button>
+      </div>
+      <button class="theme-toggle" id="themeToggle" aria-label="切换日夜主题">☀</button>
     </div>
-    <button class="theme-toggle" id="themeToggle" aria-label="切换日夜主题">☀</button>
   </div>
 </header>
 
