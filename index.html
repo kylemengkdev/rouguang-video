@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>try{document.documentElement.setAttribute('data-theme',localStorage.getItem('site-theme')==='light'?'light':'dark')}catch(e){}</script>
 <title>影像</title>
 <meta name="description" content="ROUGUANG STUDIO video works">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' fill='%230c0c0d'/><text x='32' y='42' font-size='30' text-anchor='middle' fill='%23e8e6e1' font-family='serif'>影</text></svg>">
@@ -18,6 +19,30 @@
     --display:"Cormorant Garamond","Times New Roman",serif;
     --ease-out:cubic-bezier(.16,1,.3,1);
   }
+
+  /* —— 日间模式（亮版）：页面变亮，卡套保持深色皮革 —— */
+  html[data-theme="light"]{
+    --bg:#f4f1ea; --card:#fbf9f4;
+    --bright:#1e1c19; --mid:#6f6a5e; --dim:#8a8478;
+    --hair:rgba(30,28,25,.14); --hair2:rgba(30,28,25,.08);
+  }
+  html[data-theme="light"] ::selection{background:rgba(30,28,25,.85);color:#f4f1ea}
+  html[data-theme="light"] ::-moz-selection{background:rgba(30,28,25,.85);color:#f4f1ea}
+  html[data-theme="light"] :focus-visible{outline-color:rgba(30,28,25,.55)}
+  html[data-theme="light"] ::-webkit-scrollbar-thumb{background:rgba(30,28,25,.20)}
+  html[data-theme="light"] ::-webkit-scrollbar-thumb:hover{background:rgba(30,28,25,.35)}
+  html[data-theme="light"] .hero .rule{background:linear-gradient(to bottom,transparent,rgba(30,28,25,.35),transparent)}
+  html[data-theme="light"] .works .empty-dot{background:rgba(30,28,25,.35)}
+  html[data-theme="light"] .album-close{border-color:rgba(30,28,25,.20);background:rgba(30,28,25,.06);color:rgba(30,28,25,.80)}
+  html[data-theme="light"] .album-close::before{color:rgba(30,28,25,.65)}
+  html[data-theme="light"] .album-close:hover{border-color:rgba(30,28,25,.45);background:rgba(30,28,25,.10);color:#1e1c19}
+  html[data-theme="light"] .vcard:hover{border-color:rgba(30,28,25,.30)}
+  html[data-theme="light"] .vcard .strip{color:rgba(30,28,25,.55)}
+  html[data-theme="light"] .frame{background:radial-gradient(120% 90% at 30% 20%,rgba(30,28,25,.05),transparent 55%),#ece8df}
+  html[data-theme="light"] .frame img{background:#ece8df}
+  html[data-theme="light"] .frame .noimg{color:rgba(30,28,25,.35)}
+  html[data-theme="light"] .lang button.active::after{background:rgba(30,28,25,.55)}
+
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
   body{
@@ -206,6 +231,8 @@
   .lang button.active::after{content:'';position:absolute;left:0;right:0;bottom:-4px;
     height:1px;background:rgba(232,230,225,.55)}
   html[data-lang=en] .album-title .en{display:none}
+  .theme-toggle{background:none;border:none;font-family:var(--serif);font-size:15px;line-height:1;color:var(--dim);cursor:pointer;padding:2px 4px;margin-left:16px;transition:color .25s}
+  .theme-toggle:hover{color:var(--bright)}
 
   /* cult-ui DNA (MIT, nolly-studio/cult-ui): 分层微抬 + 触感按压 */
   .vcard .frame{transition:transform .5s var(--ease-out),border-color .5s}
@@ -242,6 +269,7 @@
       <button data-lang="ja">日</button>
       <button data-lang="en">EN</button>
     </div>
+    <button class="theme-toggle" id="themeToggle" aria-label="切换日夜主题">☀</button>
   </div>
 </header>
 
@@ -530,6 +558,23 @@ const SITE = {
       localStorage.setItem('site-lang', b.dataset.lang);
     });
   });
+
+  // 主题切换（日间/夜间）
+  (function () {
+    var root = document.documentElement;
+    var btn = document.getElementById('themeToggle');
+    function setTheme(t) {
+      root.setAttribute('data-theme', t);
+      if (btn) btn.textContent = (t === 'light') ? '☾' : '☀';
+      try { localStorage.setItem('site-theme', t); } catch (e) {}
+    }
+    if (btn) btn.addEventListener('click', function () {
+      setTheme(root.getAttribute('data-theme') === 'light' ? 'dark' : 'light');
+    });
+    var saved = null;
+    try { saved = localStorage.getItem('site-theme'); } catch (e) {}
+    setTheme(saved === 'light' ? 'light' : 'dark');
+  })();
 
   // 灯箱控制
   document.getElementById('lbClose').addEventListener('click', closeLb);
