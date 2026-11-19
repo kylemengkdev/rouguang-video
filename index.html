@@ -255,16 +255,12 @@
     <div class="sec-label"><span><span data-i18n="secLabel">影像作品</span><span class="en" data-i18n="secLabelEn">selected works</span></span></div>
 
     <div class="album-group" data-section="short">
-      <div class="album-title" role="button" tabindex="0"><span class="t" data-i18n-sec="short">短视频</span><span class="cnt"></span>
-        <span class="en">shorts</span></div>
       <button class="album-close" data-i18n="close">收起频道</button>
       <div class="works" data-album></div>
       <div class="album-hint" data-i18n="hintOpen">点击展开</div>
     </div>
 
     <div class="album-group" data-section="feat">
-      <div class="album-title" role="button" tabindex="0"><span class="t" data-i18n-sec="feat">专题片</span><span class="cnt"></span>
-        <span class="en">feature</span></div>
       <button class="album-close" data-i18n="close">收起频道</button>
       <div class="works" data-album></div>
       <div class="album-hint" data-i18n="hintOpen">点击展开</div>
@@ -365,9 +361,11 @@ const SITE = {
       album.innerHTML = '<div class="empty-dot"></div>';
       if (cntEl) cntEl.textContent = '';
       const tEl = group.querySelector('.album-title');
-      tEl.classList.add('inert');
-      tEl.removeAttribute('tabindex');
-      tEl.setAttribute('aria-disabled', 'true');
+      if (tEl) {
+        tEl.classList.add('inert');
+        tEl.removeAttribute('tabindex');
+        tEl.setAttribute('aria-disabled', 'true');
+      }
       return { empty: true, album: album, group: group };
     }
     if (cntEl) cntEl.textContent = '(' + sec.videos.length + ')';
@@ -384,7 +382,7 @@ const SITE = {
             '<p><span>' + (v.note || '') + '</span><span class="yr">' + (v.year || '') + '</span></p></div>' +
         '</article>';
     }).join('');
-    album.insertAdjacentHTML('beforeend', '<div class="sleeve-txt" aria-hidden="true"><span class="sleeve-badge"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M4 2.5v11l9-5.5z"/></svg>' + sec.videos.length + ' 条' + '</span><span class="sleeve-label"><span class="t">' + (sec.id === 'short' ? '近期' : '早些') + '</span></span></div>');
+    album.insertAdjacentHTML('beforeend', '<div class="sleeve-txt" aria-hidden="true"><span class="sleeve-badge"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M4 2.5v11l9-5.5z"/></svg>' + sec.videos.length + ' 条' + '</span><span class="sleeve-label"><span class="t">' + (sec.id === 'short' ? '独立拍摄' : '执导') + '</span></span></div>');
 
     const works = Array.from(album.querySelectorAll('.vcard'));
 
@@ -497,8 +495,10 @@ const SITE = {
     });
     closeBtn.addEventListener('click', function (e) { e.stopPropagation(); toggle(false); });
     const titleEl = group.querySelector('.album-title');
-    titleEl.addEventListener('click', function () { if (!album.classList.contains('open')) toggle(true); });
-    titleEl.addEventListener('keydown', function (e) { if (e.key === 'Enter') toggle(true); });
+    if (titleEl) {
+      titleEl.addEventListener('click', function () { if (!album.classList.contains('open')) toggle(true); });
+      titleEl.addEventListener('keydown', function (e) { if (e.key === 'Enter') toggle(true); });
+    }
 
     const api = { empty: false, album: album, group: group, layout: layout, toggle: toggle, show: show, sec: sec, works: works };
     return api;
